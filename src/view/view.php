@@ -1,5 +1,7 @@
 <?php
 
+require('model/animal.php');
+
 class View {
 
 
@@ -18,9 +20,9 @@ class View {
 		$this -> content = $contenu;
 	}
 	
-	public function prepareAnimalPage(string $name, string $species) {
-		$this -> title = "Page de " . $name;
-		$this -> content = $name . " est un animal de l'espèce " . $species . ".";
+	public function prepareAnimalPage(Animal $animal) {
+		$this -> title = "Page de " . $animal -> getName();
+		$this -> content = $animal -> getName() . " est un animal de l'espèce " . $animal -> getSpecies() . "et il a actuellement " . $animal -> getAge() . " ans.";
 	}
 	
 	public function prepareUnknownAnimalPage() {
