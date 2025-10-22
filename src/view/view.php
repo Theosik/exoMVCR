@@ -28,5 +28,10 @@ class View {
 		$this -> content = "Animal inconnu";
 	}
 	
+	public function afficheAccueil() {
+		$this -> title = "Accueil";
+		$this -> content = "Bienvenu, vous voici dans l'accueil.";
+	}
+	
 	
 }

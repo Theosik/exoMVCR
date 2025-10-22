@@ -15,12 +15,16 @@ class Controller {
 	}
 	
 	public function showInformation($id) {
-		if (($id >= 0)&&($id < count($this -> animalsTabs))) {
-			$this -> view -> prepareAnimalPage($this -> animalsTabs[array_keys($this -> animalsTabs)[$id]][0],$this -> animalsTabs[array_keys($this -> animalsTabs)[$id]][1]); 
+		if (in_array($id,array_keys($this -> animalsTabs))) {
+			$this -> view -> prepareAnimalPage($this -> animalsTabs[$id][0],$this -> animalsTabs[$id][1]); 
 		}
 		else {
 			$this -> view -> prepareUnknownAnimalPage();
 		}
 	}
+	
+	public function accueil() {
+		$this -> view -> afficheAccueil();
+	}	
 	
 }
