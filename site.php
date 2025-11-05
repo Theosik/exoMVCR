@@ -7,6 +7,7 @@ set_include_path("./src");
 
 /* Inclusion des classes utilisées dans ce fichier */
 require_once("Router.php");
+require('model/AnimalStorageStub.php');
 
 /*
  * Cette page est simplement le point d'arrivée de l'internaute
@@ -14,5 +15,6 @@ require_once("Router.php");
  * et de lancer son main.
  */
 $router = new Router();
-$router->main();
+$animaux = new AnimalStorageStub();
+$router->main($animaux);
 ?>

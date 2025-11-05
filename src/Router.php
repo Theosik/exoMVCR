@@ -3,11 +3,12 @@
 require('view/view.php');
 require('control/controller.php');
 
+
 class Router {
 	
-	public function main() {
+	public function main(AnimalStorage $animaux) {
 		$view = new View("Titre","Contenu de la page",$this);
-		$controller = new Controller($view);
+		$controller = new Controller($view, $animaux);
 		if (isset($_GET["id"])) {
 			$controller -> showInformation($_GET["id"]);
 		}

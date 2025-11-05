@@ -6,18 +6,14 @@ require_once('model/animal.php');
 class Controller {
 	
 	private View $view;
-	public function __construct(View $view) {
+	public function __construct(View $view, AnimalStorage $animalsTabs) {
 		$this -> view = $view;
-		$this -> animalsTabs = array(
-	'medor' => new Animal("Médor","chien",6),
-	'felix' => new Animal("Félix","chat",9),
-	'denver' => new Animal("Denver","dinosaure",140),
-	);
+		$this -> animalsTabs = $animalsTabs;
 	}
 	
 	public function showInformation($id) {
-		if (in_array($id,array_keys($this -> animalsTabs))) {
-			$this -> view -> prepareAnimalPage($this -> animalsTabs[$id]); 
+		if ($this -> animalsTabs -> isIn($id)) {
+			$this -> view -> prepareAnimalPage($this -> animalsTabs -> read($id)); 
 		}
 		else {
 			$this -> view -> prepareUnknownAnimalPage();
@@ -29,6 +25,6 @@ class Controller {
 	}	
 	
 	public function showList() {
-		$this -> view -> prepareListPage($this -> animalsTabs);
+		$this -> view -> prepareListPage($this -> animalsTabs -> readAll());
 	}
 }
