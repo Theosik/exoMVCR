@@ -5,9 +5,10 @@ require('model/animal.php');
 class View {
 
 
-	public function __construct(string $title, string $content) {
+	public function __construct(string $title, string $content, Router $routeur) {
 		$this -> title = "";
 		$this -> content = "";
+		$this -> routeur = $routeur;
 	}
 	
 	public function render() {
@@ -22,7 +23,7 @@ class View {
 	
 	public function prepareAnimalPage(Animal $animal) {
 		$this -> title = "Page de " . $animal -> getName();
-		$this -> content = $animal -> getName() . " est un animal de l'espèce " . $animal -> getSpecies() . "et il a actuellement " . $animal -> getAge() . " ans.";
+		$this -> content = $animal -> getName() . " est un animal de l'espèce " . $animal -> getSpecies() . " et il a actuellement " . $animal -> getAge() . " ans.";
 	}
 	
 	public function prepareUnknownAnimalPage() {
@@ -33,6 +34,12 @@ class View {
 	public function afficheAccueil() {
 		$this -> title = "Accueil";
 		$this -> content = "Bienvenu, vous voici dans l'accueil.";
+	}
+
+	public function prepareListPage($animaux) {
+		foreach ($animaux as $cle => $animal) {
+			echo "<a href=" . $this -> routeur -> getAnimalURL($cle) . ">" . $animal -> getName() . "</a> ";
+		}
 	}
 	
 	

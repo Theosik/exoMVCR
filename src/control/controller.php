@@ -28,4 +28,7 @@ class Controller {
 		$this -> view -> afficheAccueil();
 	}	
 	
+	public function showList() {
+		$this -> view -> prepareListPage($this -> animalsTabs);
+	}
 }
