@@ -1,7 +1,7 @@
 <?php
 
 require_once('view/view.php');
-require_once('model/animal.php');
+require_once('model/Animal.php');
 
 class Controller {
 	

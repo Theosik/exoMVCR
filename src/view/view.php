@@ -1,19 +1,25 @@
 <?php
 
-require('model/animal.php');
+require('model/Animal.php');
 
 class View {
-
-
 	public function __construct(string $title, string $content, Router $routeur) {
 		$this -> title = "";
 		$this -> content = "";
 		$this -> routeur = $routeur;
+		$this -> menu = array(
+		$this -> routeur -> getAccueilURL() => "Accueil",
+		$this -> routeur -> getActionURL("liste") => "Liste d'animaux",
+		);
 	}
 	
 	public function render() {
 		echo "<head><title>" . $this -> title . "</title></head>";
-		echo "<body><h1>" . $this -> title . "</h1><p>" . $this -> content . "</p><body>";
+		echo "<body><ul>";
+		foreach ($this -> menu as $url => $texte) {
+			echo "<li><a href=" . $url . ">" . $texte . "</a></li>";
+		}
+		echo "</ul><h1>" . $this -> title . "</h1>" . $this -> content . "<body>";
 	}
 	
 	public function prepareTestPage(string $title, string $contenu) {
@@ -23,24 +29,36 @@ class View {
 	
 	public function prepareAnimalPage(Animal $animal) {
 		$this -> title = "Page de " . $animal -> getName();
-		$this -> content = $animal -> getName() . " est un animal de l'espèce " . $animal -> getSpecies() . " et il a actuellement " . $animal -> getAge() . " ans.";
+		$this -> content = "<p>" . $animal -> getName() . " est un animal de l'espèce " . $animal -> getSpecies() . " et il a actuellement " . $animal -> getAge() . " ans." . "</p>";
 	}
 	
 	public function prepareUnknownAnimalPage() {
 		$this -> title = "Erreur";
-		$this -> content = "Animal inconnu";
+		$this -> content = "<p>Animal inconnu</p>";
 	}
 	
 	public function afficheAccueil() {
 		$this -> title = "Accueil";
-		$this -> content = "Bienvenu, vous voici dans l'accueil.";
+		$this -> content = "<p>Bienvenu, vous voici dans l'accueil.</p>";
 	}
 
 	public function prepareListPage($animaux) {
+		$this -> title = "Liste d'animaux";
+		$content = "<ul>";
+
 		foreach ($animaux as $cle => $animal) {
-			echo "<a href=" . $this -> routeur -> getAnimalURL($cle) . ">" . $animal -> getName() . "</a> ";
+			$content .= "<li><a href=" . $this -> routeur -> getAnimalURL($cle) . ">" . $animal -> getName() . "</a></li>";
 		}
+		$content .= "</ul>";
+		$this -> content = $content;
+		
 	}
+
+	public function prepareDebugPage($variable) {
+		$this->title = 'Debug';
+		$this->content = '<pre>'.htmlspecialchars(var_export($variable, true)).'</pre>';
+	}
+
 	
 	
 }

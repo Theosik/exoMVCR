@@ -26,6 +26,14 @@ class Router {
 	public function getAnimalURL($id) {
 		return "https://dev-huet236.users.info.unicaen.fr/TW4-2025/tp7/exoMVCR/site.php?id=" . $id;
 	}
+
+	public function getActionURL($action) {
+		return "https://dev-huet236.users.info.unicaen.fr/TW4-2025/tp7/exoMVCR/site.php?action=" . $action;
+	}
+
+	public function getAccueilURL() {
+		return "https://dev-huet236.users.info.unicaen.fr/TW4-2025/tp7/exoMVCR/site.php";
+	}
 	
 	
 }
