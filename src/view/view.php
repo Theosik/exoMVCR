@@ -59,6 +59,24 @@ class View {
 		$this->content = '<pre>'.htmlspecialchars(var_export($variable, true)).'</pre>';
 	}
 
+	public function prepareAnimalCreationPage() {
+		$formulaire = <<<EOT
+			<form action=" {$this -> routeur -> getAnimalSaveURL()}" method="post">
+				<label for="name">Nom: </label>
+				<input type="text" name="name" id="name"/>
+				<label for="specie">Espèce: </label>
+				<input type="text" name="specie" id="specie"/>
+				<label for="age">Age: </label>
+				<input type="age" name="age" id="name"/>
+				<input type="submit" value="Créer" />
+			</form>		
+		EOT; 
+
+		$this -> title = "Création d'un animal";
+		$this -> content = $formulaire;
+		
+	}
+
 	
 	
 }

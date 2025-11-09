@@ -10,17 +10,15 @@ class AnimalStorageStub implements AnimalStorage {
 	'denver' => new Animal("Denver","dinosaure",140),
 	);
     }
-
-    public function isIn($id) {
-        if (in_array($id,array_keys($this -> animalsTabs))) {
-            return true;
-        }
-        return false;
-    }
+    
 
     public function read($id) {
-		return $this -> animalsTabs[$id];
-    }
+		if (key_exists($id, $this->animalsTabs)) {
+			return $this->animalsTabs[$id];
+		} else {
+			return null;
+		}
+	}
 
     public function readAll() {
         return $this -> animalsTabs;

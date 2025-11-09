@@ -16,24 +16,40 @@ class Router {
 			if ($_GET["action"] == "liste") {
 				$controller -> showList();
 			} 
+			else if ($_GET["action"] == "nouveau") {
+				$controller -> createNewAnimal();
+			}
+			else if ($_GET["action"] == "sauverNouveau") {
+				$controller -> saveNewAnimal($_POST);
+			}
 		}
 		else {
 			$controller -> accueil(); 
 		}
 		$view->render();
 	}
+
+	public function getAccueilURL() {
+		return "site.php";
+	}
 	
 	public function getAnimalURL($id) {
-		return "https://dev-huet236.users.info.unicaen.fr/TW4-2025/tp7/exoMVCR/site.php?id=" . $id;
+		return $this -> getAccueilURL() . "?id=" . $id;
 	}
 
 	public function getActionURL($action) {
-		return "https://dev-huet236.users.info.unicaen.fr/TW4-2025/tp7/exoMVCR/site.php?action=" . $action;
+		return $this -> getAccueilURL() . "?action=" . $action;
 	}
 
-	public function getAccueilURL() {
-		return "https://dev-huet236.users.info.unicaen.fr/TW4-2025/tp7/exoMVCR/site.php";
+	public function getAnimalCreationURL() {
+		return getActionURL("nouveau");
 	}
+
+	public function getAnimalSaveURL() {
+		return $this -> getActionURL("sauverNouveau");
+	}
+
+
 	
 	
 }

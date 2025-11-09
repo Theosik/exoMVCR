@@ -12,7 +12,7 @@ class Controller {
 	}
 	
 	public function showInformation($id) {
-		if ($this -> animalsTabs -> isIn($id)) {
+		if ($this -> animalsTabs -> read($id) != null) {
 			$this -> view -> prepareAnimalPage($this -> animalsTabs -> read($id)); 
 		}
 		else {
@@ -26,5 +26,15 @@ class Controller {
 	
 	public function showList() {
 		$this -> view -> prepareListPage($this -> animalsTabs -> readAll());
+	}
+
+	public function saveNewAnimal(array $data) {
+		$animal = new Animal($_POST['name'],$_POST['specie'],$_POST['age']);
+		$this -> animalsTabs -> create($animal);
+		$this -> view -> prepareAnimalPage($animal);
+	}
+
+	public function createNewAnimal() {
+		$this -> view -> prepareAnimalCreationPage();
 	}
 }
