@@ -42,7 +42,7 @@ class Router {
 	}
 
 	public function getAnimalCreationURL() {
-		return getActionURL("nouveau");
+		return $this -> getActionURL("nouveau");
 	}
 
 	public function getAnimalSaveURL() {

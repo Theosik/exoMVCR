@@ -10,6 +10,7 @@ class View {
 		$this -> menu = array(
 		$this -> routeur -> getAccueilURL() => "Accueil",
 		$this -> routeur -> getActionURL("liste") => "Liste d'animaux",
+		$this -> routeur -> getAnimalCreationURL() => "Ajouter un animal"
 		);
 	}
 	
@@ -28,8 +29,11 @@ class View {
 	}
 	
 	public function prepareAnimalPage(Animal $animal) {
-		$this -> title = "Page de " . $animal -> getName();
-		$this -> content = "<p>" . $animal -> getName() . " est un animal de l'espèce " . $animal -> getSpecies() . " et il a actuellement " . $animal -> getAge() . " ans." . "</p>";
+		$nom = htmlspecialchars($animal -> getName());
+		$espece = htmlspecialchars($animal -> getSpecies());
+		$age = htmlspecialchars($animal -> getAge());
+		$this -> title = "Page de " . $nom;
+		$this -> content = "<p>" . $nom . " est un animal de l'espèce " . $espece . " et il a actuellement " . $age . " ans." . "</p>";
 	}
 	
 	public function prepareUnknownAnimalPage() {
@@ -47,7 +51,7 @@ class View {
 		$content = "<ul>";
 
 		foreach ($animaux as $cle => $animal) {
-			$content .= "<li><a href=" . $this -> routeur -> getAnimalURL($cle) . ">" . $animal -> getName() . "</a></li>";
+			$content .= "<li><a href=" . $this -> routeur -> getAnimalURL($cle) . ">" . htmlspecialchars($animal -> getName()) . "</a></li>";
 		}
 		$content .= "</ul>";
 		$this -> content = $content;
@@ -59,15 +63,28 @@ class View {
 		$this->content = '<pre>'.htmlspecialchars(var_export($variable, true)).'</pre>';
 	}
 
-	public function prepareAnimalCreationPage() {
+	public function prepareAnimalCreationPage(String $error) {
+		if (key_exists("name",$_POST)) {$name = $_POST["name"];} else $name = "";
+		if (key_exists("specie",$_POST)) {$specie = $_POST["specie"];} else $specie = "";
+		if (key_exists("age",$_POST)) {$age = $_POST["age"];} else $age = "";
+
+
 		$formulaire = <<<EOT
+		
 			<form action=" {$this -> routeur -> getAnimalSaveURL()}" method="post">
-				<label for="name">Nom: </label>
-				<input type="text" name="name" id="name"/>
+				<label>{$error}</label>
+				<br>
+				<label for="name">Nom: </label> 
+				<input type="text" name="name" id="name" value="{$name}" />
+				
+				<br>
 				<label for="specie">Espèce: </label>
-				<input type="text" name="specie" id="specie"/>
+				<input type="text" name="specie" id="specie" value="{$specie}"/>
+				
+				<br>
 				<label for="age">Age: </label>
-				<input type="age" name="age" id="name"/>
+				<input type="age" name="age" id="name" value="{$age}"/>
+				<br>
 				<input type="submit" value="Créer" />
 			</form>		
 		EOT; 
@@ -76,6 +93,8 @@ class View {
 		$this -> content = $formulaire;
 		
 	}
+
+	
 
 	
 	
