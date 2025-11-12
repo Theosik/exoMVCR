@@ -49,6 +49,10 @@ class Router {
 		return $this -> getActionURL("sauverNouveau");
 	}
 
+	public function POSTredirect($url, $feedback) {
+		header("Location: " . $url, true, 303);
+	}
+
 
 	
 	

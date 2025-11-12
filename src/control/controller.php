@@ -37,8 +37,8 @@ class Controller {
 
 		else {
 			$animalCorrect = $animal -> createAnimal();
-			$this -> animalsTabs -> create($animalCorrect);
-			$this -> view -> prepareAnimalPage($animalCorrect);
+			$id = $this -> animalsTabs -> create($animalCorrect);
+			$this -> view -> displayAnimalCreationSuccess($id);
 		}
 	}
 

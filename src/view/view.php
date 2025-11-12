@@ -102,6 +102,10 @@ class View {
 		
 	}
 
+	public function displayAnimalCreationSuccess($id) {
+		$this -> routeur -> POSTredirect($this -> routeur -> getAnimalURL($id) , "");
+	}
+
 	
 
 	
