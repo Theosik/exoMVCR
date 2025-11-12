@@ -7,7 +7,14 @@ require('control/controller.php');
 class Router {
 	
 	public function main(AnimalStorage $animaux) {
-		$view = new View("Titre","Contenu de la page",$this);
+		if (isset($_SESSION['feedback'])) {
+			$feedback = $_SESSION['feedback'];
+		}
+		else {
+			$feedback = "";
+		}
+		$view = new View("Titre","Contenu de la page",$this, $feedback);
+		unset($_SESSION['feedback']);
 		$controller = new Controller($view, $animaux);
 		if (isset($_GET["id"])) {
 			$controller -> showInformation($_GET["id"]);
@@ -50,6 +57,7 @@ class Router {
 	}
 
 	public function POSTredirect($url, $feedback) {
+		$_SESSION['feedback'] = $feedback;
 		header("Location: " . $url, true, 303);
 	}
 

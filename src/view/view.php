@@ -3,7 +3,7 @@
 require('model/Animal.php');
 
 class View {
-	public function __construct(string $title, string $content, Router $routeur) {
+	public function __construct(string $title, string $content, Router $routeur, string $feedback) {
 		$this -> title = "";
 		$this -> content = "";
 		$this -> routeur = $routeur;
@@ -12,9 +12,11 @@ class View {
 		$this -> routeur -> getActionURL("liste") => "Liste d'animaux",
 		$this -> routeur -> getAnimalCreationURL() => "Ajouter un animal"
 		);
+		$this -> feedback = $feedback;
 	}
 	
 	public function render() {
+		echo "<p>{$this -> feedback}</p>"; 
 		echo "<head><title>" . $this -> title . "</title></head>";
 		echo "<body><ul>";
 		foreach ($this -> menu as $url => $texte) {
@@ -103,7 +105,7 @@ class View {
 	}
 
 	public function displayAnimalCreationSuccess($id) {
-		$this -> routeur -> POSTredirect($this -> routeur -> getAnimalURL($id) , "");
+		$this -> routeur -> POSTredirect($this -> routeur -> getAnimalURL($id) , "Animal créée avec succès.");
 	}
 
 	
